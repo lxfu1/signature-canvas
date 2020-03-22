@@ -18,7 +18,8 @@ $ npm install signature-canvas
 ```js
 import Signature from "@/components/Signature/index";
 
-const signature = new Signature("canvas", {
+const signature = new Signature({
+  container: "canvas",
   width: 600,
   height: 400,
   direction: "horizontal",
@@ -49,6 +50,8 @@ const toData = () => {
   const data = signature.toDataURL();
   console.log(data);
 };
+
+<div id="canvas" />;
 ```
 
 ## Development
