@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "alwaysStrict": true,
+    "removeComments": true,
+    "newLine": "LF",
+    "sourceMap": true,
+    "declaration": true,
+    "declarationDir": "dist"
+  }
+}
