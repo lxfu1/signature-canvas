@@ -1,6 +1,6 @@
 {
   "name": "signature-canvas",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "signature plugin, supporting H5 and PC",
   "scripts": {
     "test": "npm run test",

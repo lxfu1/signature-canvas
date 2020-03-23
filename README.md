@@ -22,7 +22,6 @@ const signature = new Signature({
   container: "canvas",
   width: 600,
   height: 400,
-  direction: "horizontal",
   minWidth: 1,
   maxWidth: 4,
   deafultWidth: 3,
@@ -51,7 +50,7 @@ const toData = () => {
   console.log(data);
 };
 
-<div id="canvas" />;
+<canvas id="canvas" />;
 ```
 
 ## Development
@@ -67,11 +66,11 @@ $ npm run dev
 
 The props of SignatureCanvas mainly control the properties of the pen stroke used in drawing. All props are optional.
 
-- container: container id;
+- container: canvas id or canvas DOM;
 - width: canvas width, default 400;
 - height: canvas height, default 200;
 - penColor: pen color, default blank;
-- direction: canvas direction('horizontal | vertical'), default horizontal;
+- rotate: canvas rotate('90 | -90 | 180 | -180'), default 0;
 - deafultWidth: default size when the brush touches the canvas, default 3;
 - minWidth: brush minimum, default 1;
 - maxWidth: brush maxmum, defauult 4;

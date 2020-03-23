@@ -7,7 +7,7 @@ interface IBackgroundImage {
 }
 
 interface IConfig {
-  container: string; // 容器ID
+  container: string | HTMLCanvasElement; // 容器ID
   width?: number; // 画布宽度
   height?: number; // 画布高度
   penColor?: string; // 画笔颜色
@@ -18,19 +18,17 @@ interface IConfig {
   backgroundImage?: IBackgroundImage; // 背景图片
   onBegin?: (e: MouseEvent | Touch) => void; // 开始绘制
   onEnd?: (e: MouseEvent | TouchEvent) => void; // 绘制结束
-  direction?: string; // 画布方向
+  rotate?: number; // 画布旋转角度
 }
 
 class Signature {
-  container: string;
-
   width: number;
 
   height: number;
 
   penColor: string;
 
-  direction: string;
+  rotate: number;
 
   backgroundColor: string;
 
@@ -45,8 +43,6 @@ class Signature {
   onBegin?: (e: MouseEvent | Touch) => void;
 
   onEnd?: (e: MouseEvent | TouchEvent) => void;
-
-  box: HTMLElement;
 
   private throttleTime = 16; // 防抖时间
 
@@ -70,16 +66,14 @@ class Signature {
 
   private canvasHistory: string[] = []; // 历史栈
 
-  private directions = ["horizontal", "vertical"];
-
   constructor(config: IConfig) {
-    if (!config.container) {
-      throw new Error("初始化DOM树失败，请确保元素ID存在");
+    if (!config || !config?.container) {
+      throw new Error("初始化DOM树失败，请确保元素ID或DOM实例存在");
     }
     this.width = config.width || 400;
     this.height = config.height || 200;
     this.penColor = config.penColor || "blank";
-    this.direction = config.direction || "horizontal";
+    this.rotate = config.rotate || 0;
     this.backgroundColor = config.backgroundColor || "#fff";
     this.backgroundImage = config.backgroundImage;
     this.deafultWidth = config.deafultWidth || 3;
@@ -89,8 +83,10 @@ class Signature {
     this.onEnd = config.onEnd;
     this.currentLineWidth =
       config.deafultWidth || (this.maxWidth + this.minWidth) / 2;
-    this.box = document.getElementById(config.container) as HTMLElement;
-    this.canvas = this.initDom();
+    this.canvas =
+      typeof config.container === "string"
+        ? (document.getElementById(config.container) as HTMLCanvasElement)
+        : config.container;
     this.context = this.canvas.getContext("2d") as CanvasRenderingContext2D;
     /**
      * 递减速率不高于1
@@ -109,11 +105,9 @@ class Signature {
     this.onEvent();
   }
 
-  private isVertical = () => this.direction === "vertical";
+  private getWidth = () => this.width;
 
-  private getWidth = () => (this.isVertical() ? this.height : this.width);
-
-  private getHeight = () => (this.isVertical() ? this.width : this.height);
+  private getHeight = () => this.height;
 
   // 初始化画笔大小
   private initLineWidth = () => {
@@ -123,10 +117,29 @@ class Signature {
 
   // 屏幕坐标与canvas坐标的转换
   private windowToCanvas = (x: number, y: number) => {
-    const { canvas, isVertical, width, height } = this;
+    const { canvas, width, height, rotate } = this;
     const bbox = canvas.getBoundingClientRect();
-    const dx = !isVertical() ? x - bbox.left : height - (x - bbox.left);
-    const dy = !isVertical() ? y - bbox.top : width - (y - bbox.top);
+    let dx = x - bbox.left;
+    let dy = y - bbox.top;
+    const swap = dx;
+    switch (rotate) {
+      case -90:
+        dx = width - dy;
+        dy = swap;
+        break;
+      case 90:
+        dx = dy;
+        dy = height - swap;
+        break;
+      case -180:
+      case 180:
+        dx = width - dx;
+        dy = height - dy;
+        break;
+      default:
+        /* eslint-disable */
+        console.warn("不支持等rotate，仅支持[90, -90, 180, -180]");
+    }
     return { x: Math.round(dx), y: Math.round(dy) };
   };
 
@@ -301,13 +314,10 @@ class Signature {
   private drawBackground = () => {
     const {
       context,
-      isVertical,
       getWidth,
       getHeight,
       backgroundColor,
-      backgroundImage,
-      width,
-      height
+      backgroundImage
     } = this;
     context.fillStyle = backgroundColor;
     context.fillRect(0, 0, getWidth(), getHeight());
@@ -316,54 +326,18 @@ class Signature {
       img.setAttribute("crossOrigin", "anonymous");
       img.src = backgroundImage?.src;
       img.onload = () => {
-        if (isVertical()) {
-          context.save();
-          context.rotate((-90 * Math.PI) / 180);
-          context.translate(-height, 0);
-          context.drawImage(
-            img,
-            (backgroundImage?.x || 0) - (width - height),
-            backgroundImage?.y || 0
-          );
-          context.restore();
-        } else {
-          context.drawImage(
-            img,
-            backgroundImage?.x || 0,
-            backgroundImage?.y || 0
-          );
-        }
+        context.drawImage(
+          img,
+          backgroundImage?.x || 0,
+          backgroundImage?.y || 0
+        );
       };
     }
   };
 
-  //  初始化dom
-  private initDom = () => {
-    const { box, isVertical, width, height } = this;
-    const div = document.createElement("div");
-    const boxStyle = {
-      display: "inline-block",
-      width: `${width}px`,
-      height: `${height}px`,
-      transform: `rotate(${!isVertical() ? 0 : 90}deg)  translate(0px, ${
-        !isVertical() ? 0 : -height
-      }px)`,
-      transformOrigin: "left top"
-    };
-    this.setElementStyle(div, boxStyle);
-    const canvas = document.createElement("canvas");
-    box.appendChild(div);
-    div.appendChild(canvas);
-    return canvas;
-  };
-
   // 画布
   private initCanvas = () => {
-    if (this.direction && !this.directions.includes(this.direction)) {
-      /* eslint-disable */
-      console.warn("不支持的direction，仅支持horizontal和vertical，请仔细检查");
-    }
-    const { context, isVertical, drawBackground, width, height, canvas } = this;
+    const { context, drawBackground, width, height, canvas } = this;
     const { devicePixelRatio } = window;
     if (devicePixelRatio) {
       canvas.style.width = `${width}px`;
@@ -375,28 +349,7 @@ class Signature {
       canvas.width = width;
       canvas.height = height;
     }
-
-    if (isVertical()) {
-      context.rotate((90 * Math.PI) / 180);
-      context.translate(0, -width);
-    }
     drawBackground();
-  };
-
-  /**
-   * 设置元素样式
-   * @param {d} HTMLElement
-   * @param {style}  object
-   */
-  setElementStyle = (d: HTMLElement, style: object) => {
-    if (!style) {
-      return;
-    }
-    const keys = Object.keys(style);
-    keys.forEach((k: string) => {
-      // eslint-disable-next-line no-param-reassign
-      d.style[k] = style[k];
-    });
   };
 
   /* 图片下载 */
@@ -421,7 +374,6 @@ class Signature {
     const {
       canvasHistory,
       context,
-      isVertical,
       getWidth,
       getHeight,
       drawBackground,
@@ -441,15 +393,7 @@ class Signature {
       img.src = canvasHistory[canvasHistory.length - 1];
       img.onload = () => {
         clear(false);
-        if (isVertical()) {
-          context.save();
-          context.rotate((-90 * Math.PI) / 180);
-          context.translate(-height, 0);
-          context.drawImage(img, height - width, 0, width, height);
-          context.restore();
-        } else {
-          context.drawImage(img, 0, 0, width, height);
-        }
+        context.drawImage(img, 0, 0, width, height);
       };
     }
   };
