@@ -1,5 +1,9 @@
 # signature-canvas: A signature canvas in TypeScript.
 
+<img src='https://gw.alipayobjects.com/mdn/rms_7bc6d8/afts/img/A*dSEaRooBPQwAAAAAAAAAAABkARQnAQ' width=680 />
+
+<img src='https://gw.alipayobjects.com/mdn/rms_7bc6d8/afts/img/A*CS3XSrwCpX8AAAAAAAAAAABkARQnAQ' width=400 />
+
 ## Features
 
 - Easy to use
@@ -20,8 +24,8 @@ import Signature from "signature-canvas";
 
 const signature = new Signature({
   container: "canvas",
-  width: 600,
-  height: 400,
+  width: 667,
+  height: 375,
   minWidth: 1,
   maxWidth: 4,
   deafultWidth: 3,
