@@ -2,8 +2,6 @@
 
 <img src='https://gw.alipayobjects.com/mdn/rms_7bc6d8/afts/img/A*dSEaRooBPQwAAAAAAAAAAABkARQnAQ' width=680 />
 
-<img src='https://gw.alipayobjects.com/mdn/rms_7bc6d8/afts/img/A*CS3XSrwCpX8AAAAAAAAAAABkARQnAQ' width=400 />
-
 ## Features
 
 - Easy to use
