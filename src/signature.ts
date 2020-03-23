@@ -121,24 +121,26 @@ class Signature {
     const bbox = canvas.getBoundingClientRect();
     let dx = x - bbox.left;
     let dy = y - bbox.top;
-    const swap = dx;
-    switch (rotate) {
-      case -90:
-        dx = width - dy;
-        dy = swap;
-        break;
-      case 90:
-        dx = dy;
-        dy = height - swap;
-        break;
-      case -180:
-      case 180:
-        dx = width - dx;
-        dy = height - dy;
-        break;
-      default:
-        /* eslint-disable */
-        console.warn("不支持等rotate，仅支持[90, -90, 180, -180]");
+    if (rotate) {
+      const swap = dx;
+      switch (rotate) {
+        case -90:
+          dx = width - dy;
+          dy = swap;
+          break;
+        case 90:
+          dx = dy;
+          dy = height - swap;
+          break;
+        case -180:
+        case 180:
+          dx = width - dx;
+          dy = height - dy;
+          break;
+        default:
+          /* eslint-disable */
+          console.warn("不支持等rotate，仅支持[90, -90, 180, -180]");
+      }
     }
     return { x: Math.round(dx), y: Math.round(dy) };
   };
