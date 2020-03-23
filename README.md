@@ -16,7 +16,7 @@ $ npm install signature-canvas
 ## Usage
 
 ```js
-import Signature from "@/components/Signature/index";
+import Signature from "signature-canvas";
 
 const signature = new Signature({
   container: "canvas",
