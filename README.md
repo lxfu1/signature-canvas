@@ -17,6 +17,8 @@ $ npm install signature-canvas
 
 ## Usage
 
+### normal
+
 ```js
 import Signature from "signature-canvas";
 
@@ -53,6 +55,36 @@ const toData = () => {
 };
 
 <canvas id="canvas" />;
+```
+
+### rotate
+
+```js
+import Signature from "signature-canvas";
+
+const signature = new Signature({
+  container: "canvas",
+  width: 667,
+  height: 375,
+  rotate: 90,
+  minWidth: 1,
+  maxWidth: 4,
+  deafultWidth: 3,
+  backgroundColor: "#f5f5f5",
+  backgroundImage: {
+    src:
+      "https://gw.alipayobjects.com/mdn/rms_dccb5f/afts/img/A*l2VvSJXWdigAAAAAAAAAAABkARQnAQ",
+    x: 10,
+    y: 10
+  }
+});
+
+const style = {
+  transform: 'rotate(90deg) translate(0px, 0px)'
+}
+<div style={style}>
+  <canvas id="canvas" />
+</div>;
 ```
 
 ## Development
