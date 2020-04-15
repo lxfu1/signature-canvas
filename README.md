@@ -1,6 +1,6 @@
 # signature-canvas: 签名插件
 
-[website](https://lxfu.github.io/signature-canvas/)
+[Demo](https://lxfu.github.io/signature-canvas/)
 
 <img src='https://gw.alipayobjects.com/mdn/rms_7bc6d8/afts/img/A*p8T6RL60fSAAAAAAAAAAAABkARQnAQ' width=667 />
 
