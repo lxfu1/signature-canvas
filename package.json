@@ -2,11 +2,6 @@
   "name": "signature-canvas",
   "version": "0.0.4",
   "description": "signature plugin, supporting H5 and PC",
-  "scripts": {
-    "test": "npm run test",
-    "doc": "father doc dev",
-    "build": "father build"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lxfu/signature-canvas.git"
@@ -27,8 +22,38 @@
     "url": "https://github.com/lxfu/signature-canvas/issues"
   },
   "homepage": "https://github.com/lxfu/signature-canvas#readme",
+  "scripts": {
+    "doc": "father doc dev",
+    "start": "npm run dev",
+    "dev": "dumi dev",
+    "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
+    "test": "umi-test",
+    "deploy": "gh-pages -d dist",
+    "docs:build": "dumi build",
+    "test:coverage": "umi-test --coverage",
+    "build": "father-build",
+    "pub": "npm run build && np"
+  },
   "devDependencies": {
-    "dumi": "^1.0.10",
-    "father": "^2.29.2"
+    "@testing-library/jest-dom": "^5.5.0",
+    "@testing-library/react": "^10.0.2",
+    "@types/enzyme": "^3.10.5",
+    "@types/node": "^12.12.17",
+    "@types/webpack-env": "^1.14.1",
+    "@umijs/fabric": "^2.0.7",
+    "@umijs/preset-react": "^1.4.8",
+    "@umijs/test": "^3.0.16",
+    "dumi": "^1.0.13",
+    "father-build": "^1.17.2",
+    "gh-pages": "^2.2.0",
+    "jest-canvas-mock": "^2.2.0",
+    "np": "*",
+    "prettier": "^2.0.2",
+    "shelljs": "^0.8.3",
+    "typescript": "^3.7.4"
+  },
+  "np": {
+    "yarn": false,
+    "contents": "dist"
   }
 }
