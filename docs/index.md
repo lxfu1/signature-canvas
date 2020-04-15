@@ -143,7 +143,7 @@ export default App;
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| container | 画布 id 获画布实例 | string |  HTMLCanvasElement | - |
+| container | 画布 id 获画布实例 | string \|  HTMLCanvasElement | - |
 | width | 画布宽度 | number | 400 |
 | height | 画布高度 | number | 200 |
 | penColor | 画笔颜色 | string | blank |
