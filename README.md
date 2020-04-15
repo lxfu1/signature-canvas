@@ -74,20 +74,11 @@ const style = {
 </div>;
 ```
 
-## 开发
-
-```bash
-$ npm install
-
-# build watching file changes and run demos
-$ npm run dev
-```
-
 ## API
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| container | 画布 id 获画布实例 | string |  HTMLCanvasElement | - |
+| container | 画布 id 获画布实例 | string \|  HTMLCanvasElement | - |
 | width | 画布宽度 | number | 400 |
 | height | 画布高度 | number | 200 |
 | penColor | 画笔颜色 | string | blank |
@@ -116,6 +107,15 @@ $ npm run dev
 | src  | 背景图片地址             | string | -      |
 | x    | 背景图距离画布左侧的距离 | number | 0      |
 | y    | 背景图距离画布上侧的距离 | number | 0      |
+
+## 开发
+
+```bash
+$ npm install
+
+# build watching file changes and run demos
+$ npm run dev
+```
 
 ## License
 
