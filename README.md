@@ -1,8 +1,8 @@
 # signature-canvas: 签名插件
 
-[website](https://lxfu.github.io/signature-canvas/)
+[Demo](https://lxfu.github.io/signature-canvas/)
 
-<img src='https://gw.alipayobjects.com/mdn/rms_7bc6d8/afts/img/A*dSEaRooBPQwAAAAAAAAAAABkARQnAQ' width=680 />
+<img src='https://gw.alipayobjects.com/mdn/rms_7bc6d8/afts/img/A*p8T6RL60fSAAAAAAAAAAAABkARQnAQ' width=667 />
 
 ## 特性
 
@@ -29,15 +29,6 @@ const signature = new Signature({
   container: 'canvas',
   width: 667,
   height: 375,
-  minWidth: 1,
-  maxWidth: 4,
-  deafultWidth: 3,
-  backgroundColor: '#f5f5f5',
-  backgroundImage: {
-    src: 'https://gw.alipayobjects.com/mdn/rms_dccb5f/afts/img/A*l2VvSJXWdigAAAAAAAAAAABkARQnAQ',
-    x: 10,
-    y: 10,
-  },
 });
 
 // 撤销
@@ -62,28 +53,22 @@ const toData = () => {
 ### 竖屏
 
 ```js
-import Signature from "signature-canvas";
+import Signature from 'signature-canvas';
 
 const signature = new Signature({
-  container: "canvas",
+  container: 'canvas',
   width: 667,
   height: 375,
   rotate: 90,
-  minWidth: 1,
-  maxWidth: 4,
-  deafultWidth: 3,
-  backgroundColor: "#f5f5f5",
-  backgroundImage: {
-    src:
-      "https://gw.alipayobjects.com/mdn/rms_dccb5f/afts/img/A*l2VvSJXWdigAAAAAAAAAAABkARQnAQ",
-    x: 10,
-    y: 10
-  }
 });
 
+const width = 667;
+const height = 420;
 const style = {
-  transform: 'rotate(90deg) translate(0px, 0px)'
-}
+  width,
+  height,
+  transform: `rotate(90deg) translate(${(width - height) / 2}px, ${(width - height) / 2}px)`,
+};
 <div style={style}>
   <canvas id="canvas" />
 </div>;
@@ -98,35 +83,39 @@ $ npm install
 $ npm run dev
 ```
 
-## Props
-
-The props of SignatureCanvas mainly control the properties of the pen stroke used in drawing. All props are optional.
-
-- container: canvas id or canvas DOM;
-- width: canvas width, default 400;
-- height: canvas height, default 200;
-- penColor: pen color, default blank;
-- rotate: canvas rotate('90 | -90 | 180 | -180'), default 0;
-- deafultWidth: default size when the brush touches the canvas, default 3;
-- minWidth: brush minimum, default 1;
-- maxWidth: brush maxmum, defauult 4;
-- backgroundColor: canvas background color, default '#fff';
-- backgroundImage: canvas background image;
-- src: image address;
-- x: image X coordinate, default 0;
-- y: image Y coordinate, default 0;
-- onBegin: Function at start of drawing;
-- onEnd: Function at end of drawing;
-
 ## API
 
-- clear: void, clears the canvas using the backgroundColor and backgroundImage;
-- undo: void, cancel the previous operation;
-- toDataURL: get canvas DataURL;
-- getHistory: get canvas stack DataURL;
-- offEvent: unbind events;
-- isEmpty: canvas is empty;
-- initData: init data;
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| container | 画布 id 获画布实例 | string |  HTMLCanvasElement | - |
+| width | 画布宽度 | number | 400 |
+| height | 画布高度 | number | 200 |
+| penColor | 画笔颜色 | string | blank |
+| backgroundColor | 画布背景色 | string | #fff |
+| rotate | 画布旋转角度，支持[0,90,-90,180,-180] | number | 0 |
+| minWidth | 画笔最小值 | number | 1 |
+| maxWidth | 画笔最大值 | number | 4 |
+| deafultWidth | 画布起始值(每次触碰画布时的大小)，建议不小于最小值，且不大于最大值。 | number | 3 |
+| backgroundImage | 画布背景设置 | backgroundImage | - |
+| onBegin | 开始绘制函数，多次触发 | (e: MouseEvent \| Touch)=>void | - |
+| onEnd | 绘制结束函数，多次触发 | (e: MouseEvent \|  Touch)=>void | - |
+| clear | 清除画布 | () => void | - |
+| undo | 撤销 | () => void | - |
+| toDataURL | 获取画布数据，Base64 | (type = 'image/png', encoderOptions?: number) => string | - |
+| getHistory | 获取画布栈数据 | () => string[] | - |
+| isEmpty | 判断画布是否为空 | () => boolean | - |
+| initData | 初始化画布数据，Base64 | (string) => void | - |
+| offEvent | 取消画布的监听事件 | () => void | - |
+
+### <br />
+
+### backgroundImage
+
+| 属性 | 说明                     | 类型   | 默认值 |
+| ---- | ------------------------ | ------ | ------ |
+| src  | 背景图片地址             | string | -      |
+| x    | 背景图距离画布左侧的距离 | number | 0      |
+| y    | 背景图距离画布上侧的距离 | number | 0      |
 
 ## License
 

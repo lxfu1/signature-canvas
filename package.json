@@ -15,9 +15,9 @@
   ],
   "author": "kn",
   "license": "MIT",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "es/index.d.ts",
   "bugs": {
     "url": "https://github.com/lxfu/signature-canvas/issues"
   },
