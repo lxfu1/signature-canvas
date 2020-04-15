@@ -1,3 +1,20 @@
-node_modules/
-dist/
-yarn-error.log
+# dependencies
+/node_modules
+/npm-debug.log*
+/yarn-error.log
+/yarn.lock
+/package-lock.json
+
+# production
+/dist
+/lib
+/es
+# misc
+.DS_Store
+
+# umi
+*.umi
+.umi-production
+.umi-test
+/.env.local
+.docz

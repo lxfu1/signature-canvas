@@ -1,54 +1,56 @@
-# signature-canvas: A signature canvas in TypeScript.
+# signature-canvas: 签名插件
+
+[website](https://lxfu.github.io/signature-canvas/)
 
 <img src='https://gw.alipayobjects.com/mdn/rms_7bc6d8/afts/img/A*dSEaRooBPQwAAAAAAAAAAABkARQnAQ' width=680 />
 
-## Features
+## 特性
 
-- Easy to use
+- 开箱即用
+
 - TypeScript
-- Supported H5 and PC
-- Supported horizontal and vertival layout
 
-## Installation
+- 支持横屏竖屏
+
+## 安装
 
 ```bash
 $ npm install signature-canvas
 ```
 
-## Usage
+## 使用
 
-### normal
+### 横屏
 
 ```js
-import Signature from "signature-canvas";
+import Signature from 'signature-canvas';
 
 const signature = new Signature({
-  container: "canvas",
+  container: 'canvas',
   width: 667,
   height: 375,
   minWidth: 1,
   maxWidth: 4,
   deafultWidth: 3,
-  backgroundColor: "#f5f5f5",
+  backgroundColor: '#f5f5f5',
   backgroundImage: {
-    src:
-      "https://gw.alipayobjects.com/mdn/rms_dccb5f/afts/img/A*l2VvSJXWdigAAAAAAAAAAABkARQnAQ",
+    src: 'https://gw.alipayobjects.com/mdn/rms_dccb5f/afts/img/A*l2VvSJXWdigAAAAAAAAAAABkARQnAQ',
     x: 10,
-    y: 10
-  }
+    y: 10,
+  },
 });
 
-// undo
+// 撤销
 const unDo = () => {
   signature.undo();
 };
 
-// clear
+// 清除
 const clear = () => {
   signature.clear();
 };
 
-// toDataURL
+// 下载
 const toData = () => {
   const data = signature.toDataURL();
   console.log(data);
@@ -57,7 +59,7 @@ const toData = () => {
 <canvas id="canvas" />;
 ```
 
-### rotate
+### 竖屏
 
 ```js
 import Signature from "signature-canvas";
@@ -87,7 +89,7 @@ const style = {
 </div>;
 ```
 
-## Development
+## 开发
 
 ```bash
 $ npm install
@@ -121,7 +123,10 @@ The props of SignatureCanvas mainly control the properties of the pen stroke use
 - clear: void, clears the canvas using the backgroundColor and backgroundImage;
 - undo: void, cancel the previous operation;
 - toDataURL: get canvas DataURL;
+- getHistory: get canvas stack DataURL;
 - offEvent: unbind events;
+- isEmpty: canvas is empty;
+- initData: init data;
 
 ## License
 
