@@ -1,6 +1,6 @@
 {
   "name": "signature-canvas",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "signature plugin, supporting H5 and PC",
   "repository": {
     "type": "git",
