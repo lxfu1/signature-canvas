@@ -7,7 +7,8 @@
     "url": "git+https://github.com/lxfu/signature-canvas.git"
   },
   "files": [
-    "dist"
+    "/lib",
+    "/es"
   ],
   "keywords": [
     "signature",
