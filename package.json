@@ -4,7 +4,7 @@
   "description": "signature plugin, supporting H5 and PC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lxfu/signature-canvas.git"
+    "url": "git+https://github.com/lxfu1/signature-canvas.git"
   },
   "files": [
     "dist"
@@ -19,9 +19,9 @@
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "bugs": {
-    "url": "https://github.com/lxfu/signature-canvas/issues"
+    "url": "https://github.com/lxfu1/signature-canvas/issues"
   },
-  "homepage": "https://github.com/lxfu/signature-canvas#readme",
+  "homepage": "https://github.com/lxfu1/signature-canvas#readme",
   "scripts": {
     "doc": "father doc dev",
     "start": "npm run dev",
