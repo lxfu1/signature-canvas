@@ -19,6 +19,9 @@ const App: React.FC = () => {
       width: 667,
       height: 375,
       backgroundColor: '#f5f5f5',
+      onEnd: () => {
+        console.log('end');
+      }
     });
     setCanvas(signature);
   }, []);
@@ -87,6 +90,9 @@ const App: React.FC = () => {
       height: 375,
       rotate: 90,
       backgroundColor: '#f5f5f5',
+      onEnd: () => {
+        console.log('end');
+      }
     });
     setCanvas(signature);
   }, []);
